@@ -1,0 +1,45 @@
+# Binaries
+euchainguard
+euchainguard-*
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Build output
+dist/
+build/
+out/
+
+# Results
+res/
+
+# Keys and certificates (NEVER commit private keys)
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+
+# Generated SBOMs and reports
+sbom-*.json
+report-*.html
+report-*.txt
+*.signed
+
+# Go
+*.test
+*.out
+vendor/
+.cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
