@@ -4,7 +4,6 @@ EU-compliant Software Bill of Materials (SBOM) generator with Qualified Electron
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Go Version](https://img.shields.io/badge/Go-1.22%2B-00ADD8)](go.mod)
-[![Designed for SLSA‑compliant](https://img.shields.io/badge/SLSA-Level%203-orange)](https://slsa.dev)
 
 **Note on CRA Annex I:** EUChainGuard provides the technical artifacts required for compliance (SBOM generation and disclosure of known vulnerabilities). The manufacturer remains legally responsible for establishing a **Coordinated Vulnerability Disclosure (CVD) policy** and the actual delivery of security updates.
 
