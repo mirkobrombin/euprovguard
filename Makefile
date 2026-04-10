@@ -1,10 +1,10 @@
-# EUChainGuard Makefile
+# EUProvGuard Makefile
 # @standard Cyber Resilience Act (EU) 2024/2353 - SLSA Level 3 build requirements
 # @standard ETSI EN 303 645 - secure build pipeline
 
-BINARY     = euchainguard
+BINARY     = euprovguard
 VERSION    = 1.0.0
-MODULE     = euchainguard
+MODULE     = euprovguard
 GO         = go
 GOFLAGS    = CGO_ENABLED=0 GOOS=$(GOOS) GOARCH=$(GOARCH)
 LDFLAGS    = -ldflags="-s -w -X main.Version=$(VERSION)"
@@ -75,6 +75,6 @@ install: build
 
 ## help: Show this help
 help:
-	@echo "EUChainGuard v$(VERSION) - CRA/eIDAS SBOM Generator"
+	@echo "EUProvGuard v$(VERSION) - CRA/eIDAS SBOM Generator"
 	@echo ""
 	@grep -E '^## ' Makefile | sed 's/## /  /'

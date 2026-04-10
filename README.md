@@ -1,11 +1,11 @@
-# EUChainGuard
+# EUProvGuard
 
 EU-compliant Software Bill of Materials (SBOM) generator with Qualified Electronic Signature (QES) support.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Go Version](https://img.shields.io/badge/Go-1.22%2B-00ADD8)](go.mod)
 
-**Note on CRA Annex I:** EUChainGuard provides the technical artifacts required for compliance (SBOM generation and disclosure of known vulnerabilities). The manufacturer remains legally responsible for establishing a **Coordinated Vulnerability Disclosure (CVD) policy** and the actual delivery of security updates.
+**Note on CRA Annex I:** EUProvGuard provides the technical artifacts required for compliance (SBOM generation and disclosure of known vulnerabilities). The manufacturer remains legally responsible for establishing a **Coordinated Vulnerability Disclosure (CVD) policy** and the actual delivery of security updates.
 
 ## Quick Start
 
@@ -22,23 +22,23 @@ make build-all
 
 ```bash
 # Scan a Go project and generate CycloneDX 1.6 SBOM
-./dist/euchainguard -path /path/to/project -output sbom.json
+./dist/euprovguard -path /path/to/project -output sbom.json
 
 # Sign with RSA-4096 key
-./dist/euchainguard -path /path/to/project -output sbom.json \
+./dist/euprovguard -path /path/to/project -output sbom.json \
     -sign -key /path/to/private.pem
 
 # Sign + timestamp via Aruba TSA (eIDAS Article 26)
-./dist/euchainguard -path /path/to/project -output sbom.json \
+./dist/euprovguard -path /path/to/project -output sbom.json \
     -sign -key /path/to/private.pem \
     -tsa https://tsa.aruba.it/tsa
 
 # Generate full compliance reports
-./dist/euchainguard -path /path/to/project \
+./dist/euprovguard -path /path/to/project \
     -report report.html -text-report report.txt
 
 # Verify signed SBOM
-./dist/euchainguard -verify -input sbom.json.signed -pubkey /path/to/public.pem
+./dist/euprovguard -verify -input sbom.json.signed -pubkey /path/to/public.pem
 ```
 
 ### Flags
@@ -78,7 +78,7 @@ chain visibility).
 
 ## Native SAST & Proprietary Code
 
-EUChainGuard includes an **optimized native SAST engine** designed for performance on large codebases. 
+EUProvGuard includes an **optimized native SAST engine** designed for performance on large codebases. 
 Unlike generic scanners, it uses a selective scanning logic that ignores build artifacts, binary data, and 
 heavy dependency folders (node_modules, venv, target, etc.).
 
@@ -88,12 +88,12 @@ It integrates directly with:
 
 ## eIDAS QES & Legal Attribution
 
-EUChainGuard provides the technical implementation for signing SBOMs with RSA-4096. However, under 
+EUProvGuard provides the technical implementation for signing SBOMs with RSA-4096. However, under 
 **eIDAS (EU) 2024/1183**, a signature is only "Qualified" (QES) if it is:
 1.  Created by a **Qualified Signature Creation Device (QSCD)** (e.g., YubiKey 5, Nitrokey HSM).
 2.  Based on a **Qualified Certificate** issued by a **Qualified Trust Service Provider (QTSP)**.
 
-**Important:** EUChainGuard is *not* a QTSP. It acts as the signature creation application that 
+**Important:** EUProvGuard is *not* a QTSP. It acts as the signature creation application that 
 integrates with your existing qualified infrastructure. The legal qualification of the signature 
 depends entirely on the certificate and the hardware (QSCD) used, not on the software binary itself.
 
@@ -105,19 +105,19 @@ openssl rsa -in private.pem -pubout -out public.pem
 
 ## Vulnerability Detection
 
-EUChainGuard queries [OSV.dev](https://osv.dev) for accurate, real-time CVE matching across all scanned ecosystems. 
+EUProvGuard queries [OSV.dev](https://osv.dev) for accurate, real-time CVE matching across all scanned ecosystems. 
 Vulnerabilities are cross-referenced with the [EUVD](https://euvd.enisa.europa.eu/) (ENISA EU Vulnerability Database) 
 for CRA Art. 13 compliance.
 
 ## The "Offline" Risk: Compliance Gaps
 
-While EUChainGuard will function without an internet connection, **offline mode is typically insufficient for strict CRA/eIDAS alignment**:
+While EUProvGuard will function without an internet connection, **offline mode is typically insufficient for strict CRA/eIDAS alignment**:
 
 1.  **CRA Article 13 & Annex I:** You are required to disclose "known vulnerabilities." If your tool is offline and misses a critical zero-day publically disclosed yesterday, your SBOM is technically non-compliant as it fails to "identify and remediate without delay."
 2.  **eIDAS Article 26:** Qualified Timestamping (TSA) requires reaching a Trusted Service Provider (TSP) over RFC 3161. An offline signature lacks the "Qualified" status for legal non-repudiation in EU courts.
 3.  **SAST Freshness:** The engine cannot fetch the latest OWASP CRS security patterns, potentially missing new attack vectors.
 
-**Auditable Trail:** EUChainGuard creates an auditable chain of evidence (query timestamps and cryptographically hashed catalog provenance) required for regulatory review.
+**Auditable Trail:** EUProvGuard creates an auditable chain of evidence (query timestamps and cryptographically hashed catalog provenance) required for regulatory review.
 
 ## FAQ
 
@@ -128,7 +128,7 @@ carry real penalties. An SBOM that can't prove its own integrity in court is jus
 
 ### Why embed the CVE database anymore?
 
-EUChainGuard removed the embedded CVE database because accuracy is paramount for CRA. Embedded snapshots 
+EUProvGuard removed the embedded CVE database because accuracy is paramount for CRA. Embedded snapshots 
 become stale within weeks and fail the regulatory requirement for real-time risk management.
 
 ## Useful Links

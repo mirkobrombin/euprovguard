@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mirkobrombin/euchainguard/pkg/scanner"
+	"github.com/mirkobrombin/euprovguard/pkg/scanner"
 )
 
 // CYCLONEDX_SPEC_VERSION is the CycloneDX specification version implemented.
@@ -160,7 +160,7 @@ type GeneratorOptions struct {
 	ProjectName string
 	// ProjectVersion is the top-level component version.
 	ProjectVersion string
-	// ToolVersion is the version of EUChainGuard generating this BOM.
+	// ToolVersion is the version of EUProvGuard generating this BOM.
 	ToolVersion string
 }
 
@@ -177,8 +177,8 @@ func Generate(deps []scanner.Dependency, opts GeneratorOptions) *BOM {
 			Timestamp: time.Now().UTC().Format(time.RFC3339),
 			Tools: []Tool{
 				{
-					Vendor:  "EUChainGuard",
-					Name:    "euchainguard",
+					Vendor:  "EUProvGuard",
+					Name:    "euprovguard",
 					Version: opts.ToolVersion,
 				},
 			},

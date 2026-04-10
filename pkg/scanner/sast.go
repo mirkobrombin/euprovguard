@@ -62,7 +62,7 @@ func RunSAST(root string, workers int, extraRules []SASTRule) []Finding {
 		if err != nil {
 			return nil
 		}
-		
+
 		// Check if path should be ignored
 		relPath, _ := filepath.Rel(root, path)
 		if shouldIgnorePath(relPath, ignorePatterns) {
@@ -71,7 +71,7 @@ func RunSAST(root string, workers int, extraRules []SASTRule) []Finding {
 			}
 			return nil
 		}
-		
+
 		name := info.Name()
 		if info.IsDir() {
 			// Skip hidden directories
@@ -96,7 +96,7 @@ func RunSAST(root string, workers int, extraRules []SASTRule) []Finding {
 		if isBinaryExt(ext) {
 			return nil
 		}
-		
+
 		// For wildcard rules, only scan interesting text files
 		if len(anyRules) > 0 {
 			if isInterestingTextFile(ext) {
@@ -147,7 +147,7 @@ func RunSAST(root string, workers int, extraRules []SASTRule) []Finding {
 				}
 
 				fileFindings := scanFile(path, activeRules)
-				
+
 				mu.Lock()
 				scanned++
 				if scanned%100 == 0 || scanned == totalFiles {
@@ -197,9 +197,9 @@ func scanFile(path string, rules []SASTRule) []Finding {
 				if rule.Severity != "critical" && rule.Severity != "high" {
 					continue
 				}
-				
+
 				findings = append(findings, Finding{
-					ToolName:    "EUChainGuard-Native-SAST",
+					ToolName:    "EUProvGuard-Native-SAST",
 					RuleID:      rule.ID,
 					Description: rule.Name + ": " + rule.Description,
 					File:        path,
@@ -221,23 +221,23 @@ func isCommentLine(line, path string) bool {
 	}
 
 	ext := strings.ToLower(filepath.Ext(path))
-	
+
 	// Go, C, C++, Java, C#, TypeScript, JavaScript
-	if ext == ".go" || ext == ".c" || ext == ".cpp" || ext == ".h" || 
-	   ext == ".hpp" || ext == ".java" || ext == ".cs" || ext == ".js" || 
-	   ext == ".ts" || ext == ".tsx" || ext == ".jsx" {
+	if ext == ".go" || ext == ".c" || ext == ".cpp" || ext == ".h" ||
+		ext == ".hpp" || ext == ".java" || ext == ".cs" || ext == ".js" ||
+		ext == ".ts" || ext == ".tsx" || ext == ".jsx" {
 		if strings.HasPrefix(line, "//") || strings.HasPrefix(line, "/*") || strings.HasPrefix(line, "*") {
 			return true
 		}
 	}
-	
+
 	// Python, Bash, Shell
 	if ext == ".py" || ext == ".sh" || ext == ".bash" || ext == ".zsh" {
 		if strings.HasPrefix(line, "#") {
 			return true
 		}
 	}
-	
+
 	return false
 }
 
@@ -334,4 +334,3 @@ func isInterestingTextFile(ext string) bool {
 	}
 	return textExts[ext]
 }
-

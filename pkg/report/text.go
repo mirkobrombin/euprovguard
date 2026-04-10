@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mirkobrombin/euchainguard/pkg/sbom"
-	"github.com/mirkobrombin/euchainguard/pkg/vuln"
+	"github.com/mirkobrombin/euprovguard/pkg/sbom"
+	"github.com/mirkobrombin/euprovguard/pkg/vuln"
 )
 
 // TEXT_LINE_WIDTH is the width of the text report page in characters.
@@ -59,7 +59,7 @@ func writeTextReport(
 	fmt.Fprintln(w, center("Cyber Resilience Act (EU) 2024/2353 | eIDAS (EU) 2024/1183", TEXT_LINE_WIDTH))
 	fmt.Fprintln(w, line)
 	fmt.Fprintf(w, "Generated:  %s\n", generatedAt)
-	fmt.Fprintf(w, "Tool:       EUChainGuard %s\n", toolVersion)
+	fmt.Fprintf(w, "Tool:       EUProvGuard %s\n", toolVersion)
 	fmt.Fprintln(w)
 
 	// Section 1: SBOM Summary
@@ -166,7 +166,7 @@ func writeTextReport(
 	}
 
 	fmt.Fprintln(w, line)
-	fmt.Fprintf(w, "END OF REPORT - EUChainGuard %s\n", toolVersion)
+	fmt.Fprintf(w, "END OF REPORT - EUProvGuard %s\n", toolVersion)
 	fmt.Fprintln(w, line)
 }
 

@@ -1,0 +1,39 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:814abef3-0c47-4f98-a0de-c4b7edc964c1",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-04-10T08:04:57Z",
+    "tools": [
+      {
+        "vendor": "EUProvGuard",
+        "name": "euprovguard",
+        "version": "1.0.0"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "bom-ref": "project",
+      "name": "euprovguard",
+      "version": "0.0.0"
+    }
+  },
+  "provenance": [
+    {
+      "name": "MITRE CWE",
+      "version": "4.19.1",
+      "date": "2026-01-21",
+      "signature_sha256": "61e08a4e9298ba77f2213f6d467ff00557b90d11f37ecf710204237339d9c68f",
+      "fetched_at": "2026-04-10T10:04:54+02:00"
+    },
+    {
+      "name": "OWASP CRS",
+      "version": "latest",
+      "date": "2026-04-10",
+      "signature_sha256": "verified-via-atom-feed",
+      "fetched_at": "2026-04-10T10:04:56+02:00"
+    }
+  ],
+  "components": null
+}

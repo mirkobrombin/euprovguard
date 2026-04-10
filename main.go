@@ -10,14 +10,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/mirkobrombin/euchainguard/pkg/report"
-	"github.com/mirkobrombin/euchainguard/pkg/sbom"
-	"github.com/mirkobrombin/euchainguard/pkg/scanner"
-	"github.com/mirkobrombin/euchainguard/pkg/signature"
-	"github.com/mirkobrombin/euchainguard/pkg/vuln"
+	"github.com/mirkobrombin/euprovguard/pkg/report"
+	"github.com/mirkobrombin/euprovguard/pkg/sbom"
+	"github.com/mirkobrombin/euprovguard/pkg/scanner"
+	"github.com/mirkobrombin/euprovguard/pkg/signature"
+	"github.com/mirkobrombin/euprovguard/pkg/vuln"
 )
 
-// Version is the EUChainGuard release version.
+// Version is the EUProvGuard release version.
 const Version = "1.0.0"
 
 // CRA_STANDARD identifies the CRA regulation version this build targets.
@@ -95,7 +95,7 @@ func parseFlags() Config {
 	flag.Parse()
 
 	if *showVersion {
-		fmt.Printf("EUChainGuard v%s\n", Version)
+		fmt.Printf("EUProvGuard v%s\n", Version)
 		fmt.Printf("CRA standard:   %s\n", CRA_STANDARD)
 		fmt.Printf("eIDAS standard: %s\n", EIDAS_STANDARD)
 		os.Exit(0)
@@ -117,7 +117,7 @@ func parseFlags() Config {
 // It scans all ecosystems, matches vulnerabilities, generates a [CycloneDX 1.6]
 // SBOM, signs it with [QES], and optionally produces compliance reports.
 func runGenerate(cfg Config) {
-	log.Printf("[INFO] EUChainGuard v%s - scanning %s", Version, cfg.Path)
+	log.Printf("[INFO] EUProvGuard v%s - scanning %s", Version, cfg.Path)
 
 	// 1. Scan all ecosystems in parallel.
 	rawDeps := scanAll(cfg.Path, cfg.Workers)
@@ -146,7 +146,7 @@ func runGenerate(cfg Config) {
 	var provenance []sbom.CatalogInfo
 
 	// CWE Catalog
-	cweDir := filepath.Join(os.TempDir(), "euchainguard-cwe")
+	cweDir := filepath.Join(os.TempDir(), "euprovguard-cwe")
 	cweZip := filepath.Join(cweDir, "cwe.zip")
 	cweMeta, err := vuln.FetchCatalog("MITRE-CWE", vuln.CWE_XML_URL, cweZip)
 	if err == nil {
@@ -169,7 +169,7 @@ func runGenerate(cfg Config) {
 	var sastFindings []scanner.Finding
 	if cfg.EnableSAST {
 		// Fetch latest OWASP Core Rule Set patterns to enhance the native engine
-		crsDir := filepath.Join(os.TempDir(), "euchainguard-crs")
+		crsDir := filepath.Join(os.TempDir(), "euprovguard-crs")
 		var crsRules []scanner.SASTRule
 		if err := scanner.FetchLatestCRS(crsDir); err != nil {
 			log.Printf("[WARN] Failed to fetch CRS: %v - using embedded rules only", err)
