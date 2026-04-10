@@ -44,8 +44,8 @@ jobs:
 
       - name: Run Scan
         run: |
-          chmod +x dist/euchainguard-linux-amd64
-          ./dist/euchainguard-linux-amd64 -path . -bundle compliance-report > scan.log 2>&1
+          chmod +x dist/euprovguard-linux-amd64
+          ./dist/euprovguard-linux-amd64 -path . -bundle compliance-report > scan.log 2>&1
           cat scan.log
 
       - name: Check for Findings
